@@ -5,8 +5,8 @@ These configuration settings are strictly for NGINX on CENTOS
 ## INSTALLATION
 
 ```env
+sudo yum update
 sudo yum install epel-release
-sudo yum upgrade
 ```
 
 ### CONFIGURATION
