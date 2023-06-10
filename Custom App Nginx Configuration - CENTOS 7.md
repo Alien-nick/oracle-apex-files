@@ -29,6 +29,23 @@ server {
     
     # For security, prevent accessing other apps
     
+    location ~ ^/ords/r/.*/.* {
+        if ($uri !~ "^/ords/r/<app_name>/<app_name>") {
+            return 403;
+        }
+
+        proxy_pass http://localhost:8080;
+        proxy_set_header Origin "";
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 600;
+        proxy_send_timeout 600;
+        proxy_read_timeout 600;
+        send_timeout 600;
+    }
+    
     location = /ords/f {
         if ($arg_p != 100) {
             return 403;
